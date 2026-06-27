@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reclama tu Sobre Rojo - CitySounds</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: #020b06;
+            color: #ffffff;
+            font-family: 'Orbitron', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            width: 90%;
+            max-width: 460px;
+            background: rgba(0, 20, 10, 0.95);
+            border: 2px solid #00ff88;
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 0 25px rgba(0, 255, 136, 0.3);
+        }
+        h1 {
+            font-size: 24px;
+            color: #00ff88;
+            margin-bottom: 20px;
+            text-shadow: 0 0 10px #00ff88;
+            font-weight: 900;
+        }
+        p {
+            font-size: 14px;
+            color: #cccccc;
+            line-height: 1.6;
+        }
+        input[type="text"] {
+            width: 80%;
+            padding: 12px;
+            background: #00140a;
+            border: 1px solid #00ff88;
+            color: #fff;
+            font-size: 18px;
+            text-align: center;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            font-family: 'Orbitron';
+            outline: none;
+        }
+        input[type="text"]:focus {
+            box-shadow: 0 0 10px #00ff88;
+        }
+        button, .btn-link {
+            background: #00ff88;
+            color: #000;
+            font-weight: bold;
+            border: none;
+            padding: 12px 25px;
+            font-size: 14px;
+            border-radius: 8px;
+            cursor: pointer;
+            text-transform: uppercase;
+            font-family: 'Orbitron';
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 10px;
+            transition: all 0.3s ease;
+        }
+        button:hover, .btn-link:hover {
+            background: #00cc6a;
+            box-shadow: 0 0 10px #00ff88;
+        }
+        .alert {
+            margin: 20px 0;
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 14px;
+            line-height: 1.5;
+            display: none;
+        }
+        .success {
+            background: rgba(0, 255, 136, 0.12);
+            border: 1px solid #00ff88;
+            color: #00ff88;
+        }
+        .error {
+            background: rgba(255, 68, 68, 0.12);
+            border: 1px solid #ff4444;
+            color: #ff4444;
+        }
+        .code-box {
+            font-size: 22px;
+            background: #002411;
+            padding: 12px;
+            border: 2px dashed #00ff88;
+            margin-top: 15px;
+            display: block;
+            color: #ffffff;
+            letter-spacing: 2px;
+            font-weight: bold;
+        }
+        .btn-f5 {
+            background: #ffaa00;
+            color: #000;
+        }
+        .btn-f5:hover {
+            background: #cc8800;
+            box-shadow: 0 0 10px #ffaa00;
+        }
+        .info-next {
+            color: #888888;
+            font-size: 11px;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>🎁 SOBRES ROJOS 🎁</h1>
+    
+    <div id="form-block">
+        <p>Introduce tu UID de Binance para verificar si eres referido de la comunidad y obtener tu código del sobre.</p>
+        <input type="text" id="uid-input" placeholder="Tu UID de Binance" autocomplete="off">
+        <br>
+        <button onclick="verificarUid()">Verificar Recompensa</button>
+    </div>
+
+    <div id="result-alert" class="alert"></div>
+</div>
+
+<script>
+// 🔐 FUNCIÓN PARA ENCRIPTAR EN SHA-256 (Seguridad nativa del navegador)
+async function sha256(message) {
+    const msgBuffer = new TextEncoder().encode(message);
+    const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
+    const hashArray = Array.from(new Uint8Array(hashBuffer));
+    return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+}
+
+// 📋 TU LISTA DE REFERIDOS ENCRIPTADOS
+// Reemplaza estos hashes de ejemplo por los que te genere el script de Python
+const referidosHashes = [
+    "8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92", // Ejemplo UID: 12345678
+    "ef797c8118f02dfb649607dd5d3f8c7623048c9c063d532cc95c5ed7a898a64f"  // Ejemplo UID: 98765432
+];
+
+async function verificarUid() {
+    const uidInput = document.getElementById("uid-input").value.trim();
+    const alertBox = document.getElementById("result-alert");
+    const formBlock = document.getElementById("form-block");
+
+    // Validar que no esté vacío y que sean números
+    if (!uidInput || isNaN(uidInput)) {
+        alertBox.className = "alert error";
+        alertBox.style.display = "block";
+        alertBox.textContent = "Por favor, ingresa un número de UID válido.";
+        return;
+    }
+
+    // Encriptamos lo que el usuario ingresó para compararlo de forma segura
+    const hashUsuario = await sha256(uidInput);
+
+    if (referidosHashes.includes(hashUsuario)) {
+        // 🔥 ¡SÍ ES REFERIDO CONFIRMADO!
+        formBlock.style.display = "none";
+        alertBox.className = "alert success";
+        alertBox.style.display = "block";
+        
+        // Pon aquí el código del sobre rojo que quieras regalar hoy
+        const codigoRegalo = "BINANCE-RED-777"; 
+        
+        alertBox.innerHTML = `
+            ¡VALIDACIÓN EXITOSA!<br>
+            Tu UID figura en la lista de referidos.<br>
+            <span class="code-box">${codigoRegalo}</span>
+            <br>
+            <button onclick="location.reload()" style="font-size:11px; padding:6px 12px;">Consultar otro UID</button>
+        `;
+    } else {
+        // ❌ NO APARECE COMO REFERIDO EN LA LISTA ACTUAL
+        formBlock.style.display = "none";
+        alertBox.className = "alert error";
+        alertBox.style.display = "block";
+        
+        // ⚠️ REEMPLAZA EL LINK DE ABAJO POR TU ENLACE REAL DE AFILIADO DE BINANCE:
+        const miLinkReferido = "https://accounts.binance.com/register?ref=TU_CODIGO_AQUÍ";
+
+        alertBox.innerHTML = `
+            Tu UID (${uidInput}) no figura como referido activo.<br><br>
+            Si aún no te has registrado, hazlo desde el siguiente botón:<br>
+            <a href="${miLinkReferido}" target="_blank" class="btn-link">Crear Cuenta Referida</a>
+            <br><br>
+            <button onclick="location.reload()" class="btn-link btn-f5">🔄 Volver a Chequear (F5)</button>
+            <p class="info-next">⚠️ Si te acabas de registrar y ya pusiste el enlace, estarás habilitado para el próximo stream cuando actualice la lista general.</p>
+        `;
+    }
+}
+</script>
+</body>
+</html>
