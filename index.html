@@ -180,12 +180,31 @@ async function verificarUid() {
         alertBox.style.display = "block";
         
         // Pon aquí el código del sobre rojo que quieras regalar hoy
-        const codigoRegalo = "R3JOYLE8"; 
+        const codigoRegalo = [
+            "5BHDZCIA",
+            "5Z767PKH",
+            "JF44DXV9",
+            "8CO9NUS2",
+            "WTF0ROI9",
+            "HOHVHQTM",
+            "JN5FJJAM",
+            "OBQFF09Y",
+            "DN5ER7PU",
+            "PJ0FBGBZ",
+            "8RTBIOIL",
+            "2Y0S34LH",
+            "A8JRQGF1",
+            "32KF3J8I",
+            "RYLVPHI2",
+            "A4UG0B4S",
+        ];    
+
+        const codigoRegalo = codigosRegalo[Math.floor(Math.random() * codigosRegalo.length)];
         
         alertBox.innerHTML = `
             ¡VALIDACIÓN EXITOSA!<br>
             Tu UID figura en la lista de referidos.<br>
-            <span class="code-box">${codigoRegalo}</span>
+            <span class="code-box">${indiceCodigo}</span>
             <br>
             <button onclick="location.reload()" style="font-size:11px; padding:6px 12px;">Consultar otro UID</button>
         `;
