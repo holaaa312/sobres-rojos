@@ -162,7 +162,6 @@ async function verificarUid() {
     const alertBox = document.getElementById("result-alert");
     const formBlock = document.getElementById("form-block");
 
-    // Validar que no esté vacío y que sean números
     if (!uidInput || isNaN(uidInput)) {
         alertBox.className = "alert error";
         alertBox.style.display = "block";
@@ -170,48 +169,32 @@ async function verificarUid() {
         return;
     }
 
-    // Encriptamos lo que el usuario ingresó para compararlo de forma segura
     const hashUsuario = await sha256(uidInput);
 
     if (referidosHashes.includes(hashUsuario)) {
-        // 🔥 ¡SÍ ES REFERIDO CONFIRMADO!
         formBlock.style.display = "none";
         alertBox.className = "alert success";
         alertBox.style.display = "block";
         
-        // Pon aquí el código del sobre rojo que quieras regalar hoy
-        const codigoRegalo = [
-            "Z9B8RQ8X",
-            "4A6EKE79",
-            "CS6M93PA",
-            "KCDZDFPF",
-            "F072LINB",
-            "GR8J294D",
-            "2UWWL9TG",
-            "1DS6D9VW",
-            "E2JFF8RU",
-            "EH7WB29C",
-            "04U2H61R",
-            "JOSV6JCH",
-            "GSKY0PV3",
-        ];    
-
-        const codigoRegalo = codigosRegalo[Math.floor(Math.random() * codigosRegalo.length)];
+        // Seleccionamos un código aleatorio del array encriptado
+        const randomIndex = Math.floor(Math.random() * codigosEncriptados.length);
+        const codigoBase64 = codigosEncriptados[randomIndex];
+        
+        // Decodificamos de Base64 a texto plano solo al momento de mostrar
+        const codigoFinal = atob(codigoBase64);
         
         alertBox.innerHTML = `
             ¡VALIDACIÓN EXITOSA!<br>
             Tu UID figura en la lista de referidos.<br>
-            <span class="code-box">${indiceCodigo}</span>
+            <span class="code-box">${codigoFinal}</span>
             <br>
             <button onclick="location.reload()" style="font-size:11px; padding:6px 12px;">Consultar otro UID</button>
         `;
     } else {
-        // ❌ NO APARECE COMO REFERIDO EN LA LISTA ACTUAL
         formBlock.style.display = "none";
         alertBox.className = "alert error";
         alertBox.style.display = "block";
         
-        // ⚠️ REEMPLAZA EL LINK DE ABAJO POR TU ENLACE REAL DE AFILIADO DE BINANCE:
         const miLinkReferido = "https://www.binance.com/register?ref=LEEA9DJG";
 
         alertBox.innerHTML = `
