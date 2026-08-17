@@ -1,86 +1,516 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Sobres Rojos Binance | Verificar UID</title>
+
+    <meta name="description" content="Verifica si tu UID de Binance pertenece a nuestra comunidad de referidos y consulta tu código de Sobre Rojo.">
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+            font-family: Arial, Helvetica, sans-serif;
+            background:
+                radial-gradient(circle at top, #ff4b4b 0%, #b40000 35%, #480000 100%);
+            color: #ffffff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 520px;
+        }
+
+        .card {
+            background: rgba(20, 0, 0, 0.94);
+            border: 1px solid rgba(255, 215, 0, 0.45);
+            border-radius: 22px;
+            padding: 30px 25px;
+            text-align: center;
+            box-shadow:
+                0 20px 60px rgba(0, 0, 0, 0.55),
+                0 0 30px rgba(255, 0, 0, 0.25);
+        }
+
+        .emoji {
+            font-size: 64px;
+            line-height: 1;
+            margin-bottom: 12px;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 30px;
+            color: #ffd700;
+            text-shadow: 0 2px 8px rgba(255, 215, 0, 0.35);
+        }
+
+        .subtitle {
+            margin: 10px 0 25px;
+            color: #dddddd;
+            font-size: 15px;
+            line-height: 1.5;
+        }
+
+        .instruction {
+            margin-bottom: 10px;
+            font-weight: bold;
+            color: #ffffff;
+        }
+
+        input {
+            width: 100%;
+            padding: 15px;
+            border-radius: 12px;
+            border: 2px solid #555;
+            background: #111;
+            color: #ffffff;
+            font-size: 18px;
+            text-align: center;
+            outline: none;
+            transition: 0.2s;
+        }
+
+        input:focus {
+            border-color: #ffd700;
+            box-shadow: 0 0 12px rgba(255, 215, 0, 0.25);
+        }
+
+        .btn {
+            width: 100%;
+            margin-top: 15px;
+            padding: 15px;
+            border: none;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #ffd700, #ff9f00);
+            color: #220000;
+            font-size: 17px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(255, 180, 0, 0.3);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        .alert {
+            display: none;
+            margin-top: 20px;
+            padding: 20px;
+            border-radius: 15px;
+            line-height: 1.6;
+        }
+
+        .alert.success {
+            background: rgba(0, 120, 50, 0.25);
+            border: 1px solid #00d66b;
+            color: #ffffff;
+        }
+
+        .alert.error {
+            background: rgba(160, 0, 0, 0.3);
+            border: 1px solid #ff5555;
+            color: #ffffff;
+        }
+
+        .code-box {
+            display: inline-block;
+            margin: 18px 0 10px;
+            padding: 15px 25px;
+            border-radius: 12px;
+            background: #ffd700;
+            color: #450000;
+            font-size: 26px;
+            font-weight: bold;
+            letter-spacing: 2px;
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.35);
+        }
+
+        .btn-link {
+            display: inline-block;
+            margin-top: 12px;
+            padding: 12px 20px;
+            border-radius: 10px;
+            background: #ffd700;
+            color: #450000;
+            text-decoration: none;
+            font-weight: bold;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-link:hover {
+            background: #ffb800;
+        }
+
+        .btn-f5 {
+            font-size: 14px;
+            margin-top: 5px;
+        }
+
+        .info-next {
+            margin-top: 18px;
+            font-size: 12px;
+            line-height: 1.5;
+            color: #cccccc;
+        }
+
+        .footer {
+            margin-top: 20px;
+            font-size: 12px;
+            color: #aaaaaa;
+            line-height: 1.5;
+        }
+
+        .footer a {
+            color: #ffd700;
+            text-decoration: none;
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 12px;
+            }
+
+            .card {
+                padding: 25px 18px;
+                border-radius: 18px;
+            }
+
+            .emoji {
+                font-size: 52px;
+            }
+
+            h1 {
+                font-size: 25px;
+            }
+
+            .code-box {
+                font-size: 21px;
+                padding: 13px 18px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="card">
+
+        <div class="emoji">🧧</div>
+
+        <h1>SOBRES ROJOS BINANCE</h1>
+
+        <p class="subtitle">
+            Verifica si tu UID de Binance pertenece a nuestra comunidad
+            de referidos y consulta tu código disponible.
+        </p>
+
+        <div id="form-block">
+
+            <p class="instruction">
+                Ingresa tu UID de Binance
+            </p>
+
+            <input
+                type="text"
+                id="uid-input"
+                inputmode="numeric"
+                placeholder="Ej: 123456789"
+                autocomplete="off"
+            >
+
+            <button class="btn" onclick="verificarUid()">
+                🔎 VERIFICAR UID
+            </button>
+
+        </div>
+
+        <div id="result-alert" class="alert"></div>
+
+        <div class="footer">
+            ¿Todavía no tienes cuenta?
+            <br>
+            Regístrate utilizando el enlace de referido.
+            <br>
+            <a
+                href="https://www.binance.com/register?ref=LEEA9DJG"
+                target="_blank"
+                rel="noopener noreferrer"
+            >
+                Crear cuenta en Binance
+            </a>
+        </div>
+
+    </div>
+
+</div>
+
+
 <script>
+
 // 🔐 FUNCIÓN PARA ENCRIPTAR EN SHA-256
 async function sha256(message) {
+
     const msgBuffer = new TextEncoder().encode(message);
-    const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
-    const hashArray = Array.from(new Uint8Array(hashBuffer));
-    return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+
+    const hashBuffer = await crypto.subtle.digest(
+        'SHA-256',
+        msgBuffer
+    );
+
+    const hashArray = Array.from(
+        new Uint8Array(hashBuffer)
+    );
+
+    return hashArray
+        .map(b => b.toString(16).padStart(2, '0'))
+        .join('');
 }
+
 
 // 📋 TU LISTA DE REFERIDOS ENCRIPTADOS
 const referidosHashes = [
+
     "56594ef2d196c746f1ba7db7f715f582b66578a468023b2f0c1bbd1380b38483",
+
     "be0d6b16b74e3cbe880c59e51b4ec99dd12a2eb2283633b041680b461d40d96d",
+
     "ce65be96a4ee1383842b792694db938c4addb62bb241bbfe96447363a0bf9b57",
+
     "51e790c80afdf55c1261144a696ef5413f276441273e5f4780b9bc19a0ed7557",
+
     "cb70728ca99ae5b57f18b78c88f2d0ca1429c3746ad2fc2d23db975a9a6f6b23",
+
     "225cfb9936854bc55e267697ccf9bd498c4f7d3a82d04fcee0ab1c95e1044782",
+
     "daa50592002602546cb8fde7edf449bc85215c0c4f36f3cfa1922f2c724795df",
+
     "1be333cb713ab6996188323ab76847ea44f3eeba7abf8a1bf188fa6cc799e48b",
-    "26b5d032a73a6ac91173047c7fc05f14218a7d16972994d578735c8c7b9e3772",
+
+    "26b5d032a73a6ac91173047c7fc05f14218a7d16972994d578735c8c7b9e3772"
+
 ];
 
-async function verificarUid() {
-    const uidInput = document.getElementById("uid-input").value.trim();
-    const alertBox = document.getElementById("result-alert");
-    const formBlock = document.getElementById("form-block");
 
-    if (!uidInput || isNaN(uidInput)) {
+async function verificarUid() {
+
+    const uidInput =
+        document.getElementById("uid-input").value.trim();
+
+    const alertBox =
+        document.getElementById("result-alert");
+
+    const formBlock =
+        document.getElementById("form-block");
+
+
+    // Validar UID
+    if (!uidInput || !/^\d+$/.test(uidInput)) {
+
         alertBox.className = "alert error";
+
         alertBox.style.display = "block";
-        alertBox.textContent = "Por favor, ingresa un número de UID válido.";
+
+        alertBox.textContent =
+            "Por favor, ingresa un número de UID válido.";
+
         return;
     }
 
+
+    // Generar SHA-256
     const hashUsuario = await sha256(uidInput);
 
+
+    // Comprobar referido
     if (referidosHashes.includes(hashUsuario)) {
+
         formBlock.style.display = "none";
+
         alertBox.className = "alert success";
+
         alertBox.style.display = "block";
-        
+
+
         try {
-            // 📦 Cargar la lista desde codigos.json
-            const response = await fetch('codigos.json');
-            if (!response.ok) throw new Error('No se pudo cargar codigos.json');
-            
-            const codigosEncriptados = await response.json();
-            
-            // Seleccionar uno al azar
-            const randomIndex = Math.floor(Math.random() * codigosEncriptados.length);
-            const codigoBase64 = codigosEncriptados[randomIndex];
-            
-            // Decodificar Base64 -> Texto plano
-            const codigoFinal = atob(codigoBase64);
-            
+
+            // 📦 Cargar codigos.json
+            const response =
+                await fetch("codigos.json", {
+                    cache: "no-store"
+                });
+
+
+            if (!response.ok) {
+
+                throw new Error(
+                    "No se pudo cargar codigos.json"
+                );
+
+            }
+
+
+            const codigosEncriptados =
+                await response.json();
+
+
+            if (
+                !Array.isArray(codigosEncriptados) ||
+                codigosEncriptados.length === 0
+            ) {
+
+                throw new Error(
+                    "No hay códigos disponibles"
+                );
+
+            }
+
+
+            // 🎲 Seleccionar código aleatorio
+            const randomIndex =
+                Math.floor(
+                    Math.random() *
+                    codigosEncriptados.length
+                );
+
+
+            const codigoBase64 =
+                codigosEncriptados[randomIndex];
+
+
+            // 🔓 Decodificar Base64
+            const codigoFinal =
+                atob(codigoBase64);
+
+
             alertBox.innerHTML = `
+
                 ¡VALIDACIÓN EXITOSA!<br>
-                Tu UID figura en la lista de referidos.<br>
-                <span class="code-box">${codigoFinal}</span>
+
+                Tu UID figura en la lista de referidos.
+
                 <br>
-                <button onclick="location.reload()" style="font-size:11px; padding:6px 12px;">Consultar otro UID</button>
+
+                <span class="code-box">
+                    ${codigoFinal}
+                </span>
+
+                <br>
+
+                <button
+                    onclick="location.reload()"
+                    class="btn-link btn-f5"
+                >
+                    🔄 Consultar otro UID
+                </button>
+
             `;
+
         } catch (error) {
+
             console.error(error);
+
             alertBox.className = "alert error";
-            alertBox.innerHTML = "Hubo un error al obtener tu código. Intenta de nuevo más tarde.";
+
+            alertBox.innerHTML =
+                "Hubo un error al obtener tu código. " +
+                "Intenta de nuevo más tarde.";
+
         }
 
+
     } else {
+
         formBlock.style.display = "none";
+
         alertBox.className = "alert error";
+
         alertBox.style.display = "block";
-        
-        const miLinkReferido = "https://www.binance.com/register?ref=LEEA9DJG";
+
+
+        const miLinkReferido =
+            "https://www.binance.com/register?ref=LEEA9DJG";
+
 
         alertBox.innerHTML = `
-            Tu UID (${uidInput}) no figura como referido activo.<br><br>
-            Si aún no te has registrado, hazlo desde el siguiente botón:<br>
-            <a href="${miLinkReferido}" target="_blank" class="btn-link">Crear Cuenta Referida</a>
+
+            Tu UID (${uidInput})
+            no figura como referido activo.
+
             <br><br>
-            <button onclick="location.reload()" class="btn-link btn-f5">🔄 Volver a Chequear (F5)</button>
-            <p class="info-next">⚠️ Si te acabas de registrar y ya pusiste el enlace, estarás habilitado para el próximo stream cuando actualice la lista general.</p>
+
+            Si aún no te has registrado,
+            hazlo desde el siguiente botón:
+
+            <br>
+
+            <a
+                href="${miLinkReferido}"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="btn-link"
+            >
+                Crear Cuenta Referida
+            </a>
+
+            <br><br>
+
+            <button
+                onclick="location.reload()"
+                class="btn-link btn-f5"
+            >
+                🔄 Volver a Chequear
+            </button>
+
+            <p class="info-next">
+
+                ⚠️ Si te acabas de registrar y ya pusiste
+                el enlace, estarás habilitado para el próximo
+                stream cuando actualice la lista general.
+
+            </p>
+
         `;
+
     }
+
 }
+
+
+// Permitir presionar ENTER en el UID
+document
+    .getElementById("uid-input")
+    .addEventListener("keydown", function(event) {
+
+        if (event.key === "Enter") {
+
+            verificarUid();
+
+        }
+
+    });
+
 </script>
+
+</body>
+</html>
+
