@@ -359,13 +359,13 @@ async function verificarUid() {
             }
 
 
-            const codigosEncriptados =
+            const codigos =
                 await response.json();
 
 
             if (
-                !Array.isArray(codigosEncriptados) ||
-                codigosEncriptados.length === 0
+                !Array.isArray(codigos) ||
+                codigos.length === 0
             ) {
 
                 throw new Error(
@@ -379,12 +379,12 @@ async function verificarUid() {
             const randomIndex =
                 Math.floor(
                     Math.random() *
-                    codigosEncriptados.length
+                    codigos.length
                 );
 
 
             const codigoFinal =
-                codigosEncriptados[randomIndex];
+                codigos[randomIndex];
 
 
             // 🔓 Decodificar Base64
