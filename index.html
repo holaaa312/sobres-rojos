@@ -288,10 +288,37 @@ async function sha256(message) {
 
 // 📋 LISTA DE REFERIDOS ENCRIPTADOS
 const referidosHashes = [
-    ['6c30b5e360704d9d907730274d05dd1029f6fd705af21f7640c53f02435d8d8e', '8c002949470a58af56b6969135cc0f5a520d65f41ccf9cbfa7c74cdb238d0b3c', 'a11e774d2b63004df88152a22fdaa667103f2e45f2044e67f4bf1500b0e6e0c9', '17da7df2d7f04105f6f77cdff06cddf7076255eff2bf6ad52825444d5c14c18e', '882abd8faba48465158484bfb2916e6a174fe16659a40e0d2e3ce09a913b0440', '1be333cb713ab6996188323ab76847ea44f3eeba7abf8a1bf188fa6cc799e48b', 'aa17b400bc7928078a64a14875fe5e0f0823c3f1e89d39660be025ebacd98870', '0fa5467b8fdd9ff16ba20ff5b8e2cbd170323058ee628c1ffc13efb857be2bb6', '7f68ed839699433c7b996d2e23c4b13fbd3a3f69f267727b5f781cbecb2e26b6', '9c0be5d2a67a6ba60e1588a742a5c6a9be02422b8a4574e7e7b3fed216c22a96', 'ddcc197556ad1cab933b8bb67409c560839a1abdca334b2750d74f2b23e0a3d4', 'e761afb9327901b07211f393135ec37dc5e879d831bfed40355dcf5d57f9095b'];
+    "6c30b5e360704d9d907730274d05dd1029f6fd705af21f7640c53f02435d8d8e", 
+    "8c002949470a58af56b6969135cc0f5a520d65f41ccf9cbfa7c74cdb238d0b3c", 
+    "a11e774d2b63004df88152a22fdaa667103f2e45f2044e67f4bf1500b0e6e0c9", 
+    "17da7df2d7f04105f6f77cdff06cddf7076255eff2bf6ad52825444d5c14c18e", 
+    "882abd8faba48465158484bfb2916e6a174fe16659a40e0d2e3ce09a913b0440", 
+    "1be333cb713ab6996188323ab76847ea44f3eeba7abf8a1bf188fa6cc799e48b", 
+    "aa17b400bc7928078a64a14875fe5e0f0823c3f1e89d39660be025ebacd98870", 
+    "0fa5467b8fdd9ff16ba20ff5b8e2cbd170323058ee628c1ffc13efb857be2bb6", 
+    "7f68ed839699433c7b996d2e23c4b13fbd3a3f69f267727b5f781cbecb2e26b6", 
+    "9c0be5d2a67a6ba60e1588a742a5c6a9be02422b8a4574e7e7b3fed216c22a96", 
+    "ddcc197556ad1cab933b8bb67409c560839a1abdca334b2750d74f2b23e0a3d4", 
+    "e761afb9327901b07211f393135ec37dc5e879d831bfed40355dcf5d57f9095b'
+    ];
 
 // 📦 TUS CÓDIGOS CODIFICADOS EN BASE64 (Aquí puedes inyectarlos con tu script de Python)
-const codigosBase64 = ['NVlRWDRaWDM=', 'WUdKUVdMVjc=', 'RkNEMDM0WVA=', 'UjY3MFkxVjQ=', 'NVlVSTVXOVQ=', 'UkpOM0ZZWTM=', 'TlpYM00zMFE=', 'NDRCVUNRR1E=', 'TTZaVFhQUzg=', 'RVJCSDZBQ04=', 'TTVWRVpaRU0=', 'OUtISUZPNEc=', 'TDRZNUNaWEg=', 'R01DMUozRjM=']
+const codigosBase64 = [
+    "NVlRWDRaWDM=", 
+    "WUdKUVdMVjc=", 
+    "RkNEMDM0WVA=", 
+    "UjY3MFkxVjQ=", 
+    "NVlVSTVXOVQ=", 
+    "UkpOM0ZZWTM=", 
+    "TlpYM00zMFE=", 
+    "NDRCVUNRR1E=", 
+    "TTZaVFhQUzg=", 
+    "RVJCSDZBQ04=", 
+    "TTVWRVpaRU0=", 
+    "OUtISUZPNEc=", 
+    "TDRZNUNaWEg=", 
+    "R01DMUozRjM="
+]
 
 async function verificarUid() {
     const uidInput = document.getElementById("uid-input").value.trim();
