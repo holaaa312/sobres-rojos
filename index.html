@@ -269,7 +269,6 @@
 
 // 🔐 FUNCIÓN PARA ENCRIPTAR EN SHA-256
 async function sha256(message) {
-
     const msgBuffer = new TextEncoder().encode(message);
 
     const hashBuffer = await crypto.subtle.digest(
@@ -287,7 +286,7 @@ async function sha256(message) {
 }
 
 
-// 📋 TU LISTA DE REFERIDOS ENCRIPTADOS
+// 📋 LISTA DE REFERIDOS ENCRIPTADOS
 const referidosHashes = [
     "6c30b5e360704d9d907730274d05dd1029f6fd705af21f7640c53f02435d8d8e",
     "8c002949470a58af56b6969135cc0f5a520d65f41ccf9cbfa7c74cdb238d0b3c",
@@ -303,156 +302,92 @@ const referidosHashes = [
     "e761afb9327901b07211f393135ec37dc5e879d831bfed40355dcf5d57f9095b"
 ];
 
+// 📦 TUS CÓDIGOS CODIFICADOS EN BASE64 (Aquí puedes inyectarlos con tu script de Python)
+const codigosBase64 = [
+    "NVlRWDRZWDM=",
+    "WGJQWLV7",
+    "RkNERDM0WVA=",
+    "UjY3MDFWNA==",
+    "NVlVSQVVWOVA=",
+    "UkpOM0ZZWTM=",
+    "TlpYM00zMFE=",
+    "NDRCVUNRR1E=",
+    "TTZaVFhQUzg=",
+    "RVJCSDZBQ04=",
+    "TVVWRVpaRU0=",
+    "OUtISUZPNEc=",
+    "TDRZNUMyWEg=",
+    "R01DMSozRjM="
+];
+
 async function verificarUid() {
-
-    const uidInput =
-        document.getElementById("uid-input").value.trim();
-
-    const alertBox =
-        document.getElementById("result-alert");
-
-    const formBlock =
-        document.getElementById("form-block");
-
+    const uidInput = document.getElementById("uid-input").value.trim();
+    const alertBox = document.getElementById("result-alert");
+    const formBlock = document.getElementById("form-block");
 
     // Validar UID
     if (!uidInput || !/^\d+$/.test(uidInput)) {
-
         alertBox.className = "alert error";
-
         alertBox.style.display = "block";
-
-        alertBox.textContent =
-            "Por favor, ingresa un número de UID válido.";
-
+        alertBox.textContent = "Por favor, ingresa un número de UID válido.";
         return;
     }
-
 
     // Generar SHA-256
     const hashUsuario = await sha256(uidInput);
 
-
     // Comprobar referido
     if (referidosHashes.includes(hashUsuario)) {
-
         formBlock.style.display = "none";
-
         alertBox.className = "alert success";
-
         alertBox.style.display = "block";
 
-
         try {
-
-            // 📦 Cargar codigos.json
-            const response =
-                await fetch("codigos.json", {
-                    cache: "no-store"
-                });
-
-
-            if (!response.ok) {
-
-                throw new Error(
-                    "No se pudo cargar codigos.json"
-                );
-
+            if (!codigosBase64 || codigosBase64.length === 0) {
+                throw new Error("No hay códigos disponibles");
             }
 
+            // 🎲 Seleccionar un código aleatorio del array encriptado en Base64
+            const randomIndex = Math.floor(Math.random() * codigosBase64.length);
+            const codigoCodificado = codigosBase64[randomIndex];
 
-            const codigos =
-                await response.json();
-
-
-            if (
-                !Array.isArray(codigos) ||
-                codigos.length === 0
-            ) {
-
-                throw new Error(
-                    "No hay códigos disponibles"
-                );
-
-            }
-
-
-            // 🎲 Seleccionar código aleatorio
-            const randomIndex =
-                Math.floor(
-                    Math.random() *
-                    codigos.length
-                );
-
-
-            const codigoFinal =
-                codigos[randomIndex];
-
-
-            // 🔓 Decodificar Base64
-            
+            // 🔓 Decodificar el Base64 en caliente solo al mostrarlo
+            const codigoFinal = atob(codigoCodificado);
 
             alertBox.innerHTML = `
-
                 ¡VALIDACIÓN EXITOSA!<br>
-
                 Tu UID figura en la lista de referidos.
-
                 <br>
-
                 <span class="code-box">
                     ${codigoFinal}
                 </span>
-
                 <br>
-
                 <button
                     onclick="location.reload()"
                     class="btn-link btn-f5"
                 >
                     🔄 Consultar otro UID
                 </button>
-
             `;
 
         } catch (error) {
-
             console.error(error);
-
             alertBox.className = "alert error";
-
-            alertBox.innerHTML =
-                "Hubo un error al obtener tu código. " +
-                "Intenta de nuevo más tarde.";
-
+            alertBox.innerHTML = "Hubo un error al obtener tu código. Intenta de nuevo más tarde.";
         }
 
-
     } else {
-
         formBlock.style.display = "none";
-
         alertBox.className = "alert error";
-
         alertBox.style.display = "block";
 
-
-        const miLinkReferido =
-            "https://www.binance.com/register?ref=LEEA9DJG";
-
+        const miLinkReferido = "https://www.binance.com/register?ref=LEEA9DJG";
 
         alertBox.innerHTML = `
-
-            Tu UID (${uidInput})
-            no figura como referido activo.
-
+            Tu UID (${uidInput}) no figura como referido activo.
             <br><br>
-
-            Si aún no te has registrado,
-            hazlo desde el siguiente botón:
-
+            Si aún no te has registrado, hazlo desde el siguiente botón:
             <br>
-
             <a
                 href="${miLinkReferido}"
                 target="_blank"
@@ -461,46 +396,30 @@ async function verificarUid() {
             >
                 Crear Cuenta Referida
             </a>
-
             <br><br>
-
             <button
                 onclick="location.reload()"
                 class="btn-link btn-f5"
             >
                 🔄 Volver a Chequear
             </button>
-
             <p class="info-next">
-
-                ⚠️ Si te acabas de registrar y ya pusiste
-                el enlace, estarás habilitado para el próximo
-                stream cuando actualice la lista general.
-
+                ⚠️ Si te acabas de registrar y ya pusiste el enlace, estarás habilitado para el próximo stream cuando actualice la lista general.
             </p>
-
         `;
-
     }
-
 }
-
 
 // Permitir presionar ENTER en el UID
 document
     .getElementById("uid-input")
     .addEventListener("keydown", function(event) {
-
         if (event.key === "Enter") {
-
             verificarUid();
-
         }
-
     });
 
 </script>
 
 </body>
 </html>
-
