@@ -6,7 +6,7 @@
 
     <title>Sobres Rojos Binance | Verificar UID</title>
 
-    <meta name="description" content="Verifica si tu UID de Binance pertenece a nuestra comunidad de referidos y consulta tu código de Sobre Rojo.">
+    <meta name="description" content="Verifica si tu UID de Binance pertenece a nossa comunidad de referidos y consulta tu código de Sobre Rojo.">
 
     <style>
         * {
@@ -15,7 +15,7 @@
 
         body {
             margin: 0;
-            padding: 20px 12px;
+            padding: 20px 10px;
             min-height: 100vh;
             font-family: Arial, Helvetica, sans-serif;
             background:
@@ -26,17 +26,54 @@
             align-items: center;
         }
 
-        .container {
+        /* 📐 CONTENEDOR GENERAL CON DISEÑO DE TRES COLUMNAS EN ESCRITORIO */
+        .page-layout {
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            gap: 15px;
             width: 100%;
-            max-width: 580px;
+            max-width: 920px;
         }
 
-        /* 🖼️ SECCIÓN DE BANNERS PROMOCIONALES */
+        .main-wrapper {
+            width: 100%;
+            max-width: 540px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        /* 🖼️ BANNERS VERTICALES LATERALES (160x600) */
+        .side-banner {
+            width: 160px;
+            flex-shrink: 0;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+            border: 1px solid rgba(255, 215, 0, 0.4);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            display: block;
+            background: #100000;
+        }
+
+        .side-banner:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 25px rgba(255, 215, 0, 0.35);
+        }
+
+        .side-banner img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* 🖼️ BANNERS HORIZONTALES SUPERIORES */
         .banners-wrapper {
             display: flex;
             flex-direction: column;
-            gap: 14px;
-            margin-bottom: 22px;
+            gap: 12px;
+            width: 100%;
         }
 
         .banner-item {
@@ -72,6 +109,7 @@
             box-shadow:
                 0 20px 60px rgba(0, 0, 0, 0.55),
                 0 0 30px rgba(255, 0, 0, 0.25);
+            width: 100%;
         }
 
         .emoji {
@@ -215,9 +253,20 @@
             text-decoration: none;
         }
 
+        /* 📱 RESPONSIVO: En móviles se ocultan los laterales o pasan arriba/abajo para mantener orden */
+        @media (max-width: 850px) {
+            .page-layout {
+                flex-direction: column;
+                align-items: center;
+            }
+            .side-banner {
+                display: none; /* Oculta los laterales en pantallas chicas para que no rompa el diseño móvil */
+            }
+        }
+
         @media (max-width: 480px) {
             body {
-                padding: 12px;
+                padding: 12px 6px;
             }
 
             .card {
@@ -243,77 +292,92 @@
 
 <body>
 
-<div class="container">
+<div class="page-layout">
 
-    <!-- 🎯 1. BANNERS SUPERIORES -->
-    <div class="banners-wrapper">
-        
-        <!-- Banner 1: ACR Poker (Con Enlace) -->
-        <a href="https://www.americascardroom.eu/" target="_blank" rel="noopener noreferrer" class="banner-item clickable" title="Crear cuenta en ACR Poker">
-            <img src="./728x90-WelcomeBonus-Dragon-Banner.png" alt="ACR Poker Bonus">
-        </a>
+    <!-- 👈 BANNER LATERAL IZQUIERDO (160x600) -->
+    <a href="https://www.americascardroom.eu/" target="_blank" rel="noopener noreferrer" class="side-banner clickable" title="Crear cuenta en ACR Poker">
+        <img src="./160x600-WelcomeBonus-Dragon-Banner.png" alt="ACR Poker Izquierda">
+    </a>
 
-        <!-- Banner 2: Binance Descuento (Con Enlace) -->
-        <a href="https://www.binance.com/register?ref=LEEA9DJG" target="_blank" rel="noopener noreferrer" class="banner-item clickable" title="Registro Binance 10% OFF">
-            <img src="./watermarked_img_16928249247945469771.jpg" alt="Binance 10% Descuento">
-        </a>
+    <!-- 🎯 COLUMNA PRINCIPAL -->
+    <div class="main-wrapper">
 
-        <!-- Banner 3: Sobres Rojos Binance (Sin Enlace - Fijo) -->
-        <div class="banner-item">
-            <img src="./Gemini_Generated_Image_f11umgf11umgf11u.jpg" alt="Sobres Rojos Binance">
+        <!-- 🖼️ BANNERS SUPERIORES -->
+        <div class="banners-wrapper">
+            
+            <!-- Banner 1: ACR Poker Horizontal (Con Enlace) -->
+            <a href="https://www.americascardroom.eu/" target="_blank" rel="noopener noreferrer" class="banner-item clickable" title="Crear cuenta en ACR Poker">
+                <img src="./728x90-WelcomeBonus-Dragon-Banner.png" alt="ACR Poker Bonus">
+            </a>
+
+            <!-- Banner 2: Binance Descuento (Con Enlace) -->
+            <a href="https://www.binance.com/register?ref=LEEA9DJG" target="_blank" rel="noopener noreferrer" class="banner-item clickable" title="Registro Binance 10% OFF">
+                <img src="./watermarked_img_16928249247945469771_2.jpg" alt="Binance 10% Descuento">
+            </a>
+
+            <!-- Banner 3: Sobres Rojos Binance (Sin Enlace - Fijo) -->
+            <div class="banner-item">
+                <img src="./Gemini_Generated_Image_f11umgf11umgf11u.jpg" alt="Sobres Rojos Binance">
+            </div>
+
         </div>
 
-    </div>
+        <!-- 💳 TARJETA DE VERIFICACIÓN DE UID -->
+        <div class="card">
 
-    <!-- 💳 2. TARJETA DE VERIFICACIÓN DE UID -->
-    <div class="card">
+            <div class="emoji">🧧</div>
 
-        <div class="emoji">🧧</div>
+            <h1>SOBRES ROJOS BINANCE</h1>
 
-        <h1>SOBRES ROJOS BINANCE</h1>
-
-        <p class="subtitle">
-            Verifica si tu UID de Binance pertenece a nuestra comunidad
-            de referidos y consulta tu código disponible.
-        </p>
-
-        <div id="form-block">
-
-            <p class="instruction">
-                Ingresa tu UID de Binance
+            <p class="subtitle">
+                Verifica si tu UID de Binance pertenece a nuestra comunidad
+                de referidos y consulta tu código disponible.
             </p>
 
-            <input
-                type="text"
-                id="uid-input"
-                inputmode="numeric"
-                placeholder="Ej: 123456789"
-                autocomplete="off"
-            >
+            <div id="form-block">
 
-            <button class="btn" onclick="verificarUid()">
-                🔎 VERIFICAR UID
-            </button>
+                <p class="instruction">
+                    Ingresa tu UID de Binance
+                </p>
 
-        </div>
+                <input
+                    type="text"
+                    id="uid-input"
+                    inputmode="numeric"
+                    placeholder="Ej: 123456789"
+                    autocomplete="off"
+                >
 
-        <div id="result-alert" class="alert"></div>
+                <button class="btn" onclick="verificarUid()">
+                    🔎 VERIFICAR UID
+                </button>
 
-        <div class="footer">
-            ¿Todavía no tienes cuenta?
-            <br>
-            Regístrate utilizando el enlace de referido.
-            <br>
-            <a
-                href="https://www.binance.com/register?ref=LEEA9DJG"
-                target="_blank"
-                rel="noopener noreferrer"
-            >
-                Crear cuenta en Binance
-            </a>
+            </div>
+
+            <div id="result-alert" class="alert"></div>
+
+            <div class="footer">
+                ¿Todavía no tienes cuenta?
+                <br>
+                Regístrate utilizando el enlace de referido.
+                <br>
+                <a
+                    href="https://www.binance.com/register?ref=LEEA9DJG"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    Crear cuenta en Binance
+                </a>
+            </div>
+
         </div>
 
     </div>
+
+    <!-- 👉 BANNER LATERAL DERECHO (160x600) -->
+    <a href="https://www.americascardroom.eu/" target="_blank" rel="noopener noreferrer" class="side-banner clickable" title="Crear cuenta en ACR Poker">
+        <img src="./160x600-WelcomeBonus-Dragon-Banner_-_Copy.png" alt="ACR Poker Derecha">
+    </a>
 
 </div>
 
