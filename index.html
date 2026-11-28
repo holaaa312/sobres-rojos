@@ -227,7 +227,7 @@
 </div>
 
 <script>
-    // 1. PEGA AQUÍ LOS HASHES SHA-256 QUE GENERA TU SCRIPT PYTHON
+    // 1. HASHES SHA-256 GENERADOS POR TU PYTHON
     const HASHES_AUTORIZADOS = [
         '174b6365009ec0911d589c000ec532b98a8e9f5d9379781f41a9dda1ee660243', 
         '6c30b5e360704d9d907730274d05dd1029f6fd705af21f7640c53f02435d8d8e', 
@@ -248,10 +248,10 @@
         '683805736bb66449646f8d196b175a4acd0fe0b000451ba0c5d339457cc25a45', 
         'cbcbe09e98f1939bb8a8b3d6923f7b85eda677b057f7861f8b9c6ad60d823179', 
         'eb94b09634a902006c13129a0fad242f5e23ed6cf10e4a27a57c398677d839b3', 
-        'aaa8afc3906257d58a0526746dd3e791beb65680b3cf0cb9a30571e9c30e0358' // Hash de 1293291367
+        'aaa8afc3906257d58a0526746dd3e791beb65680b3cf0cb9a30571e9c30e0358'
     ];
 
-    // 2. PEGA AQUÍ LOS CÓDIGOS EN BASE64 QUE GENERA TU SCRIPT PYTHON
+    // 2. CÓDIGOS EN BASE64
     const CODIGOS_BASE64 = [
         "UlZSOUxFUVg=",
         "M1c4QTlFSzI=",
@@ -264,15 +264,76 @@
         "TkVDTUFKV1A="
     ];
 
-    // Función para encriptar en SHA-256 desde el navegador
-    async function sha256(mensaje) {
-        const msgBuffer = new TextEncoder().encode(mensaje);
-        const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
-        const hashArray = Array.from(new Uint8Array(hashBuffer));
-        return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+    // Función SHA-256 en JavaScript puro (funciona en local file://, HTTP y HTTPS)
+    function sha256(ascii) {
+        function rightRotate(value, amount) {
+            return (value >>> amount) | (value << (32 - amount));
+        }
+        var mathPow = Math.pow;
+        var maxWord = mathPow(2, 32);
+        var lengthProperty = 'length';
+        var i, j;
+        var result = '';
+        var words = [];
+        var asciiBitLength = ascii[lengthProperty] * 8;
+        var hash = sha256.h = sha256.h || [];
+        var k = sha256.k = sha256.k || [];
+        var primeCounter = k[lengthProperty];
+        var isComposite = {};
+        for (var candidate = 2; primeCounter < 64; candidate++) {
+            if (!isComposite[candidate]) {
+                for (i = 0; i < 313; i += candidate) {
+                    isComposite[i] = candidate;
+                }
+                hash[primeCounter] = (mathPow(candidate, .5) * maxWord) | 0;
+                k[primeCounter++] = (mathPow(candidate, 1 / 3) * maxWord) | 0;
+            }
+        }
+        ascii += '\x80';
+        while (ascii[lengthProperty] % 64 - 56) ascii += '\x00';
+        for (i = 0; i < ascii[lengthProperty]; i++) {
+            j = ascii.charCodeAt(i);
+            if (j >> 8) return;
+            words[i >> 2] |= j << ((3 - i) % 4) * 8;
+        }
+        words[words[lengthProperty]] = ((asciiBitLength / maxWord) | 0);
+        words[words[lengthProperty]] = (asciiBitLength);
+        for (j = 0; j < words[lengthProperty];) {
+            var w = words.slice(j, j += 16);
+            var oldHash = hash;
+            hash = hash.slice(0, 8);
+            for (i = 0; i < 64; i++) {
+                var w15 = w[i - 15], w2 = w[i - 2];
+                var a = hash[0], e = hash[4];
+                var temp1 = hash[7]
+                    + (rightRotate(e, 6) ^ rightRotate(e, 11) ^ rightRotate(e, 25))
+                    + ((e & hash[5]) ^ ((~e) & hash[6]))
+                    + k[i]
+                    + (w[i] = (i < 16) ? w[i] : (
+                        w[i - 16]
+                        + (rightRotate(w15, 7) ^ rightRotate(w15, 18) ^ (w15 >>> 3))
+                        + w[i - 7]
+                        + (rightRotate(w2, 17) ^ rightRotate(w2, 19) ^ (w2 >>> 10))
+                    ) | 0);
+                var temp2 = (rightRotate(a, 2) ^ rightRotate(a, 13) ^ rightRotate(a, 22))
+                    + ((a & hash[1]) ^ (a & hash[2]) ^ (hash[1] & hash[2]));
+                hash = [(temp1 + temp2) | 0].concat(hash);
+                hash[4] = (hash[4] + temp1) | 0;
+            }
+            for (i = 0; i < 8; i++) {
+                hash[i] = (hash[i] + oldHash[i]) | 0;
+            }
+        }
+        for (i = 0; i < 8; i++) {
+            for (j = 3; j + 1; j--) {
+                var b = (hash[i] >> (j * 8)) & 255;
+                result += ((b < 16) ? 0 : '') + b.toString(16);
+            }
+        }
+        return result;
     }
 
-    async function verificarUID() {
+    function verificarUID() {
         const uid = document.getElementById('uidInput').value.trim();
         const res = document.getElementById('resultado-uid');
 
@@ -282,11 +343,10 @@
             return;
         }
 
-        const uidHash = await sha256(uid);
+        const uidHash = sha256(uid);
 
         if (HASHES_AUTORIZADOS.includes(uidHash)) {
             res.style.color = "#00ff66";
-            // Decodifica cada código de Base64 a texto normal y crea una cuadrícula
             const listaHTML = CODIGOS_BASE64.map(b64 => `<li>${atob(b64)}</li>`).join('');
             res.innerHTML = `✅ UID verificado. Códigos disponibles:<ul class="lista-codigos">${listaHTML}</ul>`;
         } else {
