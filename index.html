@@ -54,7 +54,6 @@
             line-height: 1.5;
             margin-bottom: 22px;
         }
-        /* Sección Palabra del Día (WOTD) */
         .wotd-box {
             background: rgba(0, 255, 136, 0.08);
             border: 1.5px solid #00ff88;
@@ -81,7 +80,6 @@
             font-size: 0.8rem;
             color: #9fb3c8;
         }
-        /* Sección Verificador UID Sobres Rojos */
         .uid-box {
             background: rgba(7, 11, 20, 0.75);
             border: 1px solid rgba(0, 240, 255, 0.3);
@@ -120,13 +118,30 @@
             opacity: 0.9;
         }
         #resultado-uid {
-            margin-top: 12px;
-            font-size: 0.9rem;
+            margin-top: 14px;
+            font-size: 0.92rem;
             font-weight: 700;
             color: #ffe600;
             min-height: 22px;
         }
-        /* Sección Registro Binance */
+        .lista-codigos {
+            list-style: none;
+            margin-top: 10px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 8px;
+        }
+        .lista-codigos li {
+            background: #0d1626;
+            border: 1px solid #00ff88;
+            color: #ffffff;
+            padding: 8px;
+            border-radius: 6px;
+            font-family: monospace;
+            font-size: 1rem;
+            letter-spacing: 1px;
+            user-select: all;
+        }
         .register-box {
             border-top: 1px solid rgba(255, 255, 255, 0.1);
             padding-top: 18px;
@@ -157,6 +172,11 @@
             border-radius: 10px;
             border: 1px solid rgba(252, 213, 53, 0.35);
             margin-top: 6px;
+            display: block;
+            transition: transform 0.2s;
+        }
+        .banner-clean:hover {
+            transform: scale(1.01);
         }
         .disclaimer {
             margin-top: 18px;
@@ -172,7 +192,7 @@
     <div class="badge-top">COMUNIDAD CRIPTO & TRADING • +18</div>
     <h1>🧧 SOBRES ROJOS BINANCE</h1>
     <p class="subtitle">
-        Verifica si tu UID de Binance pertenece a nuestra comunidad de referidos y consulta el código disponible del día.
+        Verifica si tu UID de Binance pertenece a nuestra comunidad de referidos y consulta los códigos disponibles del día.
     </p>
 
     <!-- PALABRA DEL DÍA (WOTD) -->
@@ -192,10 +212,13 @@
     <!-- REGISTRO BINANCE -->
     <div class="register-box">
         <p>¿Todavía no tienes cuenta? Regístrate utilizando nuestro enlace oficial de invitación:</p>
-        <a href="https://binance.com" target="_blank" rel="noopener noreferrer" class="btn-binance">
+        <a href="https://www.binance.com/register?ref=LEEA9DJG" target="_blank" rel="noopener noreferrer" class="btn-binance">
             Crear cuenta en Binance (10% Descuento en comisiones)
         </a>
-        <img src="./Gemini_Generated_Image_f11umgf11umgf11u.jpg" alt="Sobres Rojos Binance" class="banner-clean">
+        <!-- Imagen convertida en enlace -->
+        <a href="https://www.binance.com/register?ref=LEEA9DJG" target="_blank" rel="noopener noreferrer">
+            <img src="./Gemini_Generated_Image_f11umgf11umgf11u.jpg" alt="Sobres Rojos Binance" class="banner-clean">
+        </a>
     </div>
 
     <div class="disclaimer">
@@ -204,13 +227,13 @@
 </div>
 
 <script>
-    // Lista de UIDs habilitados de tu comunidad (agregá aquí los UIDs reales de tus referidos)
-    const UIDS_AUTORIZADOS = [
-        // Ejemplo: "123456789", "987654321"
+    // 1. PEGA AQUÍ LOS HASHES SHA-256 QUE GENERA TU SCRIPT PYTHON
+    const HASHES_AUTORIZADOS = [
+        "09510c54d407f9b859994a717f6e01a7e7b3e8962e0892623a6f137b1d85a984" // Hash de 1293291367
     ];
 
-    // Código de Sobre Rojo vigente
-    const CODIGO_SOBRE_ROJO =  [
+    // 2. PEGA AQUÍ LOS CÓDIGOS EN BASE64 QUE GENERA TU SCRIPT PYTHON
+    const CODIGOS_BASE64 = [
         "UlZSOUxFUVg=",
         "M1c4QTlFSzI=",
         "QjQ0VFRBTjc=",
@@ -220,9 +243,17 @@
         "NFFUSlpIVjI=",
         "SlUxU1IyR0g=",
         "TkVDTUFKV1A="
-    ];    
+    ];
 
-    function verificarUID() {
+    // Función para encriptar en SHA-256 desde el navegador
+    async function sha256(mensaje) {
+        const msgBuffer = new TextEncoder().encode(mensaje);
+        const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
+        const hashArray = Array.from(new Uint8Array(hashBuffer));
+        return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+    }
+
+    async function verificarUID() {
         const uid = document.getElementById('uidInput').value.trim();
         const res = document.getElementById('resultado-uid');
 
@@ -232,9 +263,13 @@
             return;
         }
 
-        if (UIDS_AUTORIZADOS.length === 0 || UIDS_AUTORIZADOS.includes(uid)) {
+        const uidHash = await sha256(uid);
+
+        if (HASHES_AUTORIZADOS.includes(uidHash)) {
             res.style.color = "#00ff66";
-            res.textContent = "✅ UID verificado. Código disponible: " + CODIGO_SOBRE_ROJO;
+            // Decodifica cada código de Base64 a texto normal y crea una cuadrícula
+            const listaHTML = CODIGOS_BASE64.map(b64 => `<li>${atob(b64)}</li>`).join('');
+            res.innerHTML = `✅ UID verificado. Códigos disponibles:<ul class="lista-codigos">${listaHTML}</ul>`;
         } else {
             res.style.color = "#ffe600";
             res.textContent = "ℹ️ UID no encontrado en la lista. Regístrate con el enlace de abajo para participar.";
